@@ -1,0 +1,17 @@
+.info-container {
+  width: 96%;
+  margin: 10px auto;
+  padding: 20px;
+  background-color: white;
+  color: #222;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2)
+}
+
+@media (max-width: 600px) {
+  .info-container {
+    width: 90%; /* Уменьшаем ширину контейнера до 90% на устройствах с шириной экрана до 600px */
+    margin: 10px auto;
+    padding: 10px; /* Уменьшаем отступы внутри контейнера */
+  }
+}

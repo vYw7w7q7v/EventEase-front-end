@@ -1,2 +1,1 @@
-# EventEase-front-end
-## test
+# EventEase-frontend

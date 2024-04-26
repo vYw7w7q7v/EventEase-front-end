@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="88b473ad-5414-4812-873a-f62a76283bf6" name="mp">
+        <fileTransfer rootFolder="/var/www/html/mp.qupe.ru" accessType="SFTP" host="213.141.129.8" port="2225" sshConfigId="80c9ebcb-be85-44aa-8026-6f2db0421055" sshConfig="mp@213.141.129.8:2225 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="2834e3fb-c8bd-476e-9950-542fdde77782" name="mptest">
+        <fileTransfer rootFolder="/var/www/html/mp.qupe.ru" accessType="SFTP" host="213.141.129.8" port="2230" sshConfigId="5a56c53b-0989-4791-9fbe-3781e7416c55" sshConfig="mp@213.141.129.8:2230 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
