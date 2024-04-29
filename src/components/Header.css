@@ -89,10 +89,6 @@
   font-weight: 600; /* Полужирный шрифт */
 }
 
-.create-event-button {
-  margin-right: 10px;
-}
-
 @media (max-width: 600px) and (orientation: portrait) {
   .header {
     display: grid;
