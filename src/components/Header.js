@@ -128,7 +128,7 @@ const Header = () => {
       <div className="login-button">
         <Button variant="contained" className="create-event-button" onClick={handleCreateEventDialogOpen}>Создать событие</Button>
         <Button variant="contained" onClick={handleDialogOpen}>Войти</Button>
-        
+        <LoginDialog open={openDialog} onClose={handleDialogClose} />
       </div>
       <Dialog open={openCreateEventDialog} onClose={handleCreateEventDialogClose} maxWidth="xs" fullWidth={false}>
         <Tooltip title="Закрыть" arrow>

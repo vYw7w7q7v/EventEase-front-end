@@ -34,15 +34,15 @@ const RegisterDialog = ({ open, onClose }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}  PaperProps={{ style: { backgroundColor: '#222' } }}>
+    <Dialog open={open} onClose={onClose}  PaperProps={{ style: { backgroundColor: '#fff' } }}>
       <Tooltip title="Закрыть" arrow>
           <IconButton aria-label="Close" onClick={onClose} style={{ position: 'absolute', top: 10, right: 10 }}>
-            <CloseIcon style={{ color: 'white' }} />
+            <CloseIcon style={{ color: 'black' }} />
           </IconButton>
       </Tooltip>
       <DialogTitle>
-          <Typography variant="h4" gutterBottom style={{ fontFamily: 'Arial', fontWeight: 'bold', color: 'white'}}>EventEaze</Typography>
-          <Typography variant="subtitle1" style={{ color: 'white'}} gutterBottom>Пожалуйста зарегестрируйтесь на нашем сервисе</Typography>
+          <Typography variant="h4" gutterBottom style={{ fontFamily: 'Arial', fontWeight: 'bold', color: 'black'}}>EventEase</Typography>
+          <Typography variant="subtitle1" style={{ color: 'black'}} gutterBottom>Пожалуйста зарегестрируйтесь на нашем сервисе</Typography>
       </DialogTitle>
       <DialogContent>
         <Grid container spacing={2} direction="column" alignItems="stretch">
@@ -55,8 +55,8 @@ const RegisterDialog = ({ open, onClose }) => {
               fullWidth
               value={formData.username}
               onChange={handleInputChange}
-              InputLabelProps={{ style: { color: 'white' } }}
-              inputProps={{ style: { color: 'white' } }}
+              InputLabelProps={{ style: { color: 'black' } }}
+              inputProps={{ style: { color: 'black' } }}
             />
           </Grid>
           <Grid item>
@@ -68,8 +68,8 @@ const RegisterDialog = ({ open, onClose }) => {
               fullWidth
               value={formData.login}
               onChange={handleInputChange}
-              InputLabelProps={{ style: { color: 'white' } }}
-              inputProps={{ style: { color: 'white' } }}
+              InputLabelProps={{ style: { color: 'black' } }}
+              inputProps={{ style: { color: 'black' } }}
             />
           </Grid>
           <Grid item>
@@ -81,8 +81,8 @@ const RegisterDialog = ({ open, onClose }) => {
               fullWidth
               value={formData.email}
               onChange={handleInputChange}
-              InputLabelProps={{ style: { color: 'white' } }}
-              inputProps={{ style: { color: 'white' } }}
+              InputLabelProps={{ style: { color: 'black' } }}
+              inputProps={{ style: { color: 'black' } }}
             />
           </Grid>
           <Grid item>
@@ -94,8 +94,8 @@ const RegisterDialog = ({ open, onClose }) => {
               fullWidth
               value={formData.password}
               onChange={handleInputChange}
-              InputLabelProps={{ style: { color: 'white' } }}
-              inputProps={{ style: { color: 'white' } }}
+              InputLabelProps={{ style: { color: 'black' } }}
+              inputProps={{ style: { color: 'black' } }}
             />
           </Grid>
           <Grid item>
@@ -107,12 +107,12 @@ const RegisterDialog = ({ open, onClose }) => {
               fullWidth
               value={formData.repeatPassword}
               onChange={handleInputChange}
-              InputLabelProps={{ style: { color: 'white' } }}
-              inputProps={{ style: { color: 'white' } }}
+              InputLabelProps={{ style: { color: 'black' } }}
+              inputProps={{ style: { color: 'black' } }}
             />
           </Grid>
         </Grid>
-        <Button onClick={handleSubmit} variant="contained" style={{ marginTop: '20px', backgroundColor: 'white', color: 'black' }} fullWidth>Зарегистрироваться</Button>
+        <Button onClick={handleSubmit} variant="contained" style={{ marginTop: '20px', backgroundColor: '#FFA500', color: 'white' }} fullWidth>Зарегистрироваться</Button>
       </DialogContent>
     </Dialog>
   );
