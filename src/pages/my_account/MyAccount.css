@@ -1,0 +1,28 @@
+.account-container {
+  width: 96%;
+  margin: 10px auto;
+  padding: 20px;
+  background-color: white;
+  color: #222;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2)
+}
+
+.account-info {
+  display: flex;
+  align-items: flex-start; /* Выравниваем элементы по верхнему краю */
+}
+
+.avatar-container {
+  margin-right: 20px; /* Добавляем отступ между аватаром и остальным содержимым */
+}
+
+
+
+@media (max-width: 600px) {
+  .account-container {
+    width: 90%;
+    margin: 10px auto;
+    padding: 10px;
+  }
+}
