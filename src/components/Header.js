@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../../context/AuthContext'; // Путь к AuthProvider
+import { useAuthContext } from '../context/AuthContext'; // Путь к AuthProvider
 
 // ** Style
 import './Header.css';
@@ -24,9 +24,9 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 
 // ** Components
-import AddEventDialog from "../../views/componets/AddEventDialog";
+import AddEventDialog from "../views/componets/AddEventDialog";
 import CloseIcon from "@mui/icons-material/Close";
-import LoginDialog from "../../login/LoginDialog";
+import LoginDialog from "../pages/authorization/login/LoginDialog";
 
 const Header = () => {
   const { authToken, setAuthToken } = useAuthContext();

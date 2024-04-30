@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuthContext } from '../context/AuthContext'; // Путь к AuthProvider
+import { useAuthContext } from '../../../context/AuthContext'; // Путь к AuthProvider
 
 // ** Style
 import './LoginDialog.css';
