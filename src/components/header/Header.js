@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../../context/AuthContext'; // Путь к AuthProvider
+
+// ** Context
+import { useAuthContext } from '../../context/AuthContext';
+import { useCloseEventContext } from '../../context/event/CloseEventContext';
 
 // ** Style
 import './Header.css';
@@ -28,14 +31,14 @@ import AddEventDialog from "../../views/componets/AddEventDialog";
 import CloseIcon from "@mui/icons-material/Close";
 import LoginDialog from "../../pages/authorization/login/LoginDialog";
 
+
 const Header = () => {
   const { authToken, setAuthToken } = useAuthContext();
+  const { setCloseEvent } = useCloseEventContext();
   const [openDialog, setOpenDialog] = useState(false);
   const [openAddEventDialog, setOpenAddEventDialog] = useState(false);
   const [openCreateEventDialog, setOpenCreateEventDialog] = useState(false);
   const [activeButton, setActiveButton] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState('Воронеж');
-  const [anchorEl, setAnchorEl] = useState(null);
   const [tabValue, setTabValue] = useState(0);
   const [anchorMenu, setAnchorMenu] = useState(null);
 
@@ -71,21 +74,13 @@ const Header = () => {
     setActiveButton(null);
   };
 
-  const handleLocationClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleLocationClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLocationSelect = (location) => {
-    setSelectedLocation(location);
-    handleLocationClose();
-  };
-
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
+    if (newValue === 0) {
+      setCloseEvent(0);
+    } else {
+      setCloseEvent(1);
+    }
   };
 
   const handleMenuClick = (event) => {
@@ -108,21 +103,6 @@ const Header = () => {
         <Tooltip title="Главная" arrow>
           <Link to="/" className="logo-link" onClick={handleLogoClick}>EventEase</Link>
         </Tooltip>
-      </div>
-      <div className="location">
-        <Button className="location" onClick={handleLocationClick} startIcon={<LocationOnIcon />}>
-          {selectedLocation}
-        </Button>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleLocationClose}
-          className="location"
-        >
-          <MenuItem onClick={() => handleLocationSelect('Воронеж')}>Воронеж</MenuItem>
-          <MenuItem onClick={() => handleLocationSelect('Москва')}>Москва</MenuItem>
-          <MenuItem onClick={() => handleLocationSelect('Санкт-Петербург')}>Санкт-Петербург</MenuItem>
-        </Menu>
       </div>
       <nav>
         <div className="navigation-links">
@@ -148,7 +128,7 @@ const Header = () => {
         <div className="login-button">
           <Button variant="contained" style={{ marginRight: '10px' }} onClick={handleCreateEventDialogOpen}>Создать событие</Button>
           <IconButton onClick={handleMenuClick}>
-            <Avatar />
+            <Avatar alt="User Avatar" src="/img/avatar/avatar_demo.jpg" className="avatar" sx={{ width: 50, height: 50}} />
           </IconButton>
           <Menu
             anchorEl={anchorMenu}
@@ -163,6 +143,7 @@ const Header = () => {
             </Link>
             <MenuItem onClick={handleLogout} style={{color: 'black' }}>Выйти</MenuItem>
           </Menu>
+          <AddEventDialog open={openAddEventDialog} onClose={handleDialogAddEventClose}/>
         </div>
       ) : (
         <div className="login-button">
@@ -209,11 +190,24 @@ const Header = () => {
               </Button>
             </Box>
           </Box>
-          <Box hidden={tabValue !== 1}>
-            <Typography>
-              Чтобы создать закрытое событие необходимо войти в свой аккаунт или зарегистрироваться.
-            </Typography>
-          </Box>
+          {authToken ? (
+            <Box hidden={tabValue !== 1} marginTop={2}>
+              <Typography>
+                Создайте своё мероприятие мечты!
+              </Typography>
+              <Box mt={2}>
+                <Button variant="contained" style={{ backgroundColor: "#FFA500" }} onClick={handleDialogAddEventOpen}>
+                  Создать
+                </Button>
+              </Box>
+            </Box>
+          ) : (
+            <Box hidden={tabValue !== 1}>
+              <Typography>
+                Чтобы создать закрытое событие необходимо войти в свой аккаунт или зарегистрироваться.
+              </Typography>
+            </Box>
+          )}
         </DialogContent>
       </Dialog>
     </header>

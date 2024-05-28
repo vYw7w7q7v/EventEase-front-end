@@ -1,22 +1,67 @@
-import React from 'react';
-import { Card, CardContent, TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
-import DatePicker from "react-datepicker";
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+
+// ** MUI
+import { Card, CardContent, TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button, Switch } from '@mui/material';
+import MenuItem from "@mui/material/MenuItem";
+
+// ** Styled
 import "react-datepicker/dist/react-datepicker.css";
 
+// ** Components
+import DatePicker from "react-datepicker";
+
+// ** Context
+import { useAuthContext } from "../../context/AuthContext";
+import { useCloseEventContext } from '../../context/event/CloseEventContext';
+
 function AddEventDialog({ open, onClose }) {
-  const [textField1, setTextField1] = React.useState('');
-  const [textField2, setTextField2] = React.useState('');
-  const [textField3, setTextField3] = React.useState('');
-  const [selectedDate, setSelectedDate] = React.useState(null);
+  const { closeEvent } = useCloseEventContext();
+  const { authToken, setAuthToken } = useAuthContext();
+  const [eventData, setEventData] = useState({
+    name_event: '',
+    address: '',
+    description: '',
+    registration: null,
+    invitedBy: '',
+    selectedDate: null,
+    closeEvent: closeEvent
+  });
+
+  useEffect(() => {
+    setEventData(prevState => ({
+      ...prevState,
+      closeEvent: closeEvent
+    }));
+  }, [closeEvent]);
 
   const handleClose = () => onClose(false);
-
   const handleSave = () => {
-    console.log('TextField 1:', textField1);
-    console.log('TextField 2:', textField2);
-    console.log('TextField 3:', textField3);
-    console.log('Selected Date:', selectedDate);
+    console.log('Event Data:', eventData);
     onClose(false);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEventData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSwitchChange = (e) => {
+    const { name, checked } = e.target;
+    setEventData(prevState => ({
+      ...prevState,
+      [name]: checked
+    }));
+  };
+
+  const handleDateChange = (date) => {
+    setEventData(prevState => ({
+      ...prevState,
+      selectedDate: date
+    }));
   };
 
   return (
@@ -28,45 +73,70 @@ function AddEventDialog({ open, onClose }) {
             <TextField
               autoFocus
               margin="dense"
-              id="textField1"
+              name="name_event"
               label="Название события"
               type="text"
               fullWidth
-              value={textField1}
-              onChange={(e) => setTextField1(e.target.value)}
+              value={eventData.name_event}
+              onChange={handleChange}
             />
             <TextField
               margin="dense"
-              id="textField2"
+              name="address"
               label="Место (Адрес)"
               type="text"
               fullWidth
-              value={textField2}
-              onChange={(e) => setTextField2(e.target.value)}
+              value={eventData.address}
+              onChange={handleChange}
             />
-            <TextField
-              margin="dense"
-              id="textField3"
-              label="Описание"
-              type="text"
-              fullWidth
-              multiline
-              rows={6}
-              value={textField3}
-              onChange={(e) => setTextField3(e.target.value)}
-            />
-            <div style={{ marginLeft: "25%", marginTop: "20px"}}>
-              <label>Дата и время:</label>
-              <DatePicker
-                selected={selectedDate}
-                onChange={date => setSelectedDate(date)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                dateFormat="dd/MM/yyyy HH:mm"
-                timeCaption="Время"
+            {authToken && (
+              <TextField
+                margin="dense"
+                name="description"
+                label="Описание"
+                type="text"
+                fullWidth
+                multiline
+                rows={6}
+                value={eventData.description}
+                onChange={handleChange}
               />
-            </div>
+            )}
+            {authToken && (
+              <div>
+                <label>Требуется регистрация: </label>
+                <Switch
+                  name="registration"
+                  checked={eventData.registration}
+                  onChange={handleSwitchChange}
+                />
+              </div>
+            )}
+            {authToken && (
+              <TextField
+                margin="dense"
+                name="invitedBy"
+                label="Приглашающий"
+                type="text"
+                fullWidth
+                value={eventData.invitedBy}
+                onChange={handleChange}
+              />
+            )}
+            {authToken && (
+              <div style={{ marginLeft: "25%", marginTop: "20px" }}>
+                <label>Дата и время:</label>
+                <DatePicker
+                  selected={eventData.selectedDate}
+                  onChange={handleDateChange}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={15}
+                  dateFormat="dd/MM/yyyy HH:mm"
+                  timeCaption="Время"
+                />
+              </div>
+            )}
           </CardContent>
         </Card>
       </DialogContent>
@@ -74,9 +144,9 @@ function AddEventDialog({ open, onClose }) {
         <Button onClick={handleClose} variant="contained" style={{ backgroundColor: "#FFA500", marginBottom: "10px" }}>
           Отмена
         </Button>
-        <Button onClick={handleSave} variant="contained" style={{ backgroundColor: "#FFA500", marginBottom: "10px", marginRight: "16px" }}>
+        <MenuItem component={Link} to="/preview" variant="contained" style={{ backgroundColor: "#FFA500", marginBottom: "10px", marginRight: "16px" }} onClick={handleSave}>
           Сохранить
-        </Button>
+        </MenuItem>
       </DialogActions>
     </Dialog>
   );

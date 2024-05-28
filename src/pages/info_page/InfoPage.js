@@ -8,10 +8,24 @@ import './InfoPage.css';
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Tooltip from "@mui/material/Tooltip";
+import AddEventDialog from "../../views/componets/AddEventDialog";
+import {useAuthContext} from "../../context/AuthContext";
+import {useCloseEventContext} from "../../context/event/CloseEventContext";
 
 const InfoPage = () => {
+  const { setCloseEvent } = useCloseEventContext();
+  const { authToken } = useAuthContext();
   const [openDialog, setOpenDialog] = useState(false);
   const [tabValue, setTabValue] = useState(0);
+  const [openAddEventDialog, setOpenAddEventDialog] = useState(false);
+
+  const handleDialogAddEventOpen = () => {
+    setOpenAddEventDialog(true);
+  };
+
+  const handleDialogAddEventClose = () => {
+    setOpenAddEventDialog(false);
+  };
 
   const handleOpenDialog = () => {
     setOpenDialog(true);
@@ -23,6 +37,11 @@ const InfoPage = () => {
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
+    if (newValue === 0) {
+      setCloseEvent(0);
+    } else {
+      setCloseEvent(1);
+    }
   };
 
   return (
@@ -39,6 +58,7 @@ const InfoPage = () => {
           </div>
         </CardContent>
       </Card>
+      <AddEventDialog open={openAddEventDialog} onClose={handleDialogAddEventClose}/>
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="xs" fullWidth={false}>
         <Tooltip title="Закрыть" arrow>
           <IconButton onClick={handleCloseDialog} style={{ color: 'black', position: 'absolute', top: 10, right: 10 }}>
@@ -71,16 +91,29 @@ const InfoPage = () => {
               Создать открытое событие можно без регистрации
             </Typography>
             <Box mt={2}>
-              <Button variant="contained" style={{ backgroundColor: "#FFA500" }}>
+              <Button variant="contained" style={{ backgroundColor: "#FFA500" }} onClick={handleDialogAddEventOpen}>
                 Создать
               </Button>
             </Box>
           </Box>
-          <Box hidden={tabValue !== 1}>
-            <Typography>
-              Чтобы создать закрытое событие необходимо войти в свой аккаунт или зарегистрироваться.
-            </Typography>
-          </Box>
+          {authToken ? (
+            <Box hidden={tabValue !== 1} marginTop={2}>
+              <Typography>
+                Создайте своё мероприятие мечты!
+              </Typography>
+              <Box mt={2}>
+                <Button variant="contained" style={{ backgroundColor: "#FFA500" }} onClick={handleDialogAddEventOpen}>
+                  Создать
+                </Button>
+              </Box>
+            </Box>
+          ) : (
+            <Box hidden={tabValue !== 1}>
+              <Typography>
+                Чтобы создать закрытое событие необходимо войти в свой аккаунт или зарегистрироваться.
+              </Typography>
+            </Box>
+          )}
         </DialogContent>
       </Dialog>
     </div>

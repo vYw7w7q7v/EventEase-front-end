@@ -9,25 +9,93 @@
 }
 
 .events-grid {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 0 100px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  gap: 10px;
   justify-content: center;
 }
 
 .event-card {
-  width: 250px;
-  height: 300px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
+.image-container {
+  width: 270px;
+  height: 270px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.event-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  max-height: 90%;
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.text-content {
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-word;
+}
 
 @media (max-width: 600px) {
   .event-selection-container {
     width: 90%;
     margin: 10px auto;
     padding: 10px;
+  }
+
+  .events-grid {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .event-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .image-container {
+    width: 320px;
+    height: 320px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
 }

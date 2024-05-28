@@ -9,11 +9,13 @@ import MyAccount from "./pages/my_account/MyAccount";
 import EventSelection from "./pages/event_selection/EventSelection";
 import {AuthProvider} from "./context/AuthContext";
 import AccountSettings from "./pages/account_settings/AccountSettings";
+import {CloseEventProvider} from "./context/event/CloseEventContext";
 
 const App = () => {
   return (
     <Router>
       <AuthProvider>
+        <CloseEventProvider>
         <div>
           <Header />
           <Routes>
@@ -36,6 +38,7 @@ const App = () => {
           </Routes>
           {/*<Footer />*/}
         </div>
+        </CloseEventProvider>
       </AuthProvider>
     </Router>
   );
